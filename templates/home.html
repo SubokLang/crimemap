@@ -16,6 +16,7 @@
                 function(event){
                     placeMarker(event.latLng);
                     });
+                    placeCrimes({{crimes | safe}});
         }
 
         function placeMarker(location) {
@@ -28,7 +29,18 @@
                 });
             }
             document.getElementById('latitude').value = location.lat();
-            document.getElementById('longtitude').value = location.lng();
+            document.getElementById('longitude').value = location.lng();
+        }
+
+        function placeCrimes(crimes) {
+            for (i=0; i<crimes.length; i++) {
+                crime = new google.maps.Marker ({
+                    position: new google.maps.LatLng(crimes[i].latitude,crimes[i].longitude),
+                    map: map,
+                    title: crimes[i].date + "\n" +
+                        crimes[i].category + "\n" + crimes[i].description
+                });
+            }
         }
     </script>
 </head>
@@ -48,8 +60,8 @@
                 <input name="date" id="date" type="date">
                 <label for="latitude">Latitude</label>
                 <input name="latitude" id="latitude" type="text">
-                <label for="longtitude">Longtitude</label>
-                <input name="longtitude" id="longtitude" type="text">
+                <label for="longitude">Longitude</label>
+                <input name="longitude" id="longitude" type="text">
                 <label for="description">Description</label>
                 <textarea name="description" id="description"
                           placeholder="A brief but detailed description of the crime"></textarea>
