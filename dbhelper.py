@@ -19,13 +19,23 @@ class DBHelper:
         finally:
             connection.close()
 
-    def add_input(self, data):
+    def old_add_input(self, data):
         connection = self.connect()
         try:
             # The following introduces a deliberate security flaw. SQL injection
             query = "INSERT INTO crimes (description) VALUES ('{}');".format(data)
             with connection.cursor() as cursor:
                 cursor.execute(query)
+                connection.commit()
+        finally:
+            connection.close()
+
+    def add_input(self, data):
+        connection = self.connect()
+        try:
+            query = "INSERT INTO crimes (description) VALUES (%s);"
+            with connection.cursor() as cursor:
+                cursor.execute(query, data)
                 connection.commit()
         finally:
             connection.close()
