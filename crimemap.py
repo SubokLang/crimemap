@@ -10,7 +10,7 @@ else:
     from dbhelper import DBHelper
 
 app = Flask(__name__)
-DB = DBHelper
+DB = DBHelper()
 
 @app.route('/test')
 def test():
@@ -24,15 +24,7 @@ def test():
 
 @app.route("/")
 def home():
-    # crimes = DB.get_all_crimes()
-    # getting error - get_all_crimes() missing 1 required positional argument: 'self'
-    # hardcoded crimes
-    crimes = [{'latitude':37.3215697595007,
-                 'longitude':-121.97733879089355,
-                 'date':"2000-01-01",
-                 'category':"mugging",
-                 'description':'i was mugged'
-                 }]
+    crimes = DB.get_all_crimes()
     crimes = json.dumps(crimes)
     return render_template("home.html", crimes=crimes)
 
