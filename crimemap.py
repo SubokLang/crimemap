@@ -26,7 +26,7 @@ def test():
 def home():
     # crimes = DB.get_all_crimes()
     # getting error - get_all_crimes() missing 1 required positional argument: 'self'
-    # hardcoded crimes for now
+    # hardcoded crimes
     crimes = [{'latitude':37.3215697595007,
                  'longitude':-121.97733879089355,
                  'date':"2000-01-01",
